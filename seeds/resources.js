@@ -1,13 +1,34 @@
-
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
+  return knex("resources")
+    .del()
+    .then(function() {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex("resources").insert([
+        {
+          name: "performing macbook",
+          description: "cleaned up and optimized storage for fast performance"
+        },
+        {
+          name: "Coffee",
+          description: "caffeine is the secret ingredient to good programming"
+        },
+        {
+          name: "Good Wifi",
+          description: "As fast as vietnam allows"
+        },
+        {
+          name: "Youtube Crash Course",
+          description: "video for learing Pug"
+        },
+        {
+          name: "Docs",
+          description: "Use documentation to learn more"
+        },
+        {
+          name: "Self discipline and google doc",
+          description: "For this resume"
+        }
       ]);
     });
 };
