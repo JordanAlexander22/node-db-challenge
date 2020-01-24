@@ -68,23 +68,18 @@ router.get("/:id/tasks", async (req, res) => {
   }
 });
 
-router.post("/:id/tasks", async (req, res) => {
-  const { id } = req.params;
-  const task = req.body;
-
-  try {
-    const projects = await Projects.findById(id);
-    if (!projects) {
-      return res.status(404).json({ message: "Invalid Project ID" });
-    }
-    if (!task.description) {
-      return res.status(404).json({ message: "Task description missing" });
-    }
-    const count = await Tasks.add(task, id);
-    res.status(201).json(count);
-  } catch (error) {
-    res.status(500).json({ error: "Error adding task" });
-  }
+// post a task to a project        // wasnt able to do it with async 
+router.post("/:id/tasks", (req, res) => {
+  Projects.addTask(req.body, req.params.id)
+    .then(task => {
+      res.status(201).json(task);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to add task." });
+    });
 });
 
-module.exports= router;
+
+
+
+module.exports = router;
